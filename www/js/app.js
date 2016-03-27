@@ -130,7 +130,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'ProfileCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-profile" ui-sref="app.studentGuideHunt" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                template: '<button id="fab-profile" ui-sref="app.studentGuideTSU" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
                 controller: function ($timeout) {
                   $timeout(function () {
                       document.getElementById('fab-profile').classList.toggle('on');
@@ -148,7 +148,61 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'ProfileCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-profile" ui-sref="app.login" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                template: '<button id="fab-profile" ui-sref="app.studentGuide" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-left"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.studentGuideSHC', {
+        url: '/studentGuideSHC',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/studentGuide-SHC.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.studentGuideMBT" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.studentGuideTSU', {
+        url: '/studentGuideTSU',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/studentGuide-TSU.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.studentGuideSHC" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.studentGuideMBT', {
+        url: '/studentGuideMBT',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/studentGuide-MBT.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.studentGuideHunt" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
                 controller: function ($timeout) {
                   $timeout(function () {
                       document.getElementById('fab-profile').classList.toggle('on');
