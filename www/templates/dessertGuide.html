@@ -1,0 +1,28 @@
+<ion-view view-title="Dessert Guide Map">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zEybGi8xeae0.kwnsikhpyAWU" style=" height:50%;width:100%;"></iframe>
+        <h4 class="content padding double-padding-x">On this Tour</h4>
+        <div class="list animate-fade-slide-in-right">
+          <a ui-sref="app.dessertGuideCCF" class="item item-avatar item-icon-right">
+            <img src="img/cfactory.jpg">
+            <h2>The Cheesecake Factory</h2>
+            <p>Getting high on Cheesecake</p>
+           </a>
+          <a ui-sref="app.dessertGuideWH" class="item item-avatar item-icon-right">
+              <img src="img/wafflehouse.jpg">
+              <h2>Waffle House</h2>
+              <p>Getting crispy Waffles</p>
+          </a>
+          <a ui-sref="app.dessertGuideIC" class="item item-avatar item-icon-right">
+              <img src="img/icookie.jpg">
+              <h2>Insomnia Cookies</h2>
+              <p>Cookie dough calling!</p>
+          </a>
+           <a ui-sref="app.dessertGuideSSC" class="item item-avatar item-icon-right">
+              <img src="img/smallcakes.jpg">
+              <h2>Smallcakes, A cupcakery</h2>
+              <p>Mission: gorging delicious cupcakes</p>
+          </a>
+        </div>
+    </ion-content>
+</ion-view>

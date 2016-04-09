@@ -212,6 +212,99 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     })
 
+    .state('app.dessertGuide', { //stuti
+        url: '/dessertGuide',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dessertGuide.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.dessertGuideCCF" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 900); 
+                }
+            }
+        }
+    })
+
+
+    .state('app.dessertGuideCCF', { //stuti
+        url: '/dessertGuideCCF',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dessertGuide-CCF.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.dessertGuideWH" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+.state('app.dessertGuideWH', { //stuti
+        url: '/dessertGuideWH',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dessertGuide-WH.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.dessertGuideIC" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+
+    .state('app.dessertGuideIC', { //stuti
+        url: '/dessertGuideIC',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dessertGuide-IC.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.dessertGuideSSC" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.dessertGuideSSC', { //stuti
+        url: '/dessertGuideSSC',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dessertGuide-SSC.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.dessertGuide" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-left"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+
     .state('app.profile', {
         url: '/profile',
         views: {
