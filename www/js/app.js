@@ -212,7 +212,133 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     })
 
-    .state('app.dessertGuide', { //stuti
+	.state('app.beerGuide', {
+        url: '/beerGuide',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/beerGuide.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function ($timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-friends').classList.toggle('on');
+                    }, 900);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5', {
+        url: '/theDowntown5',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5CrankArm" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5CrankArm', {
+        url: '/theDowntown5CrankArm',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5CrankArm.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5Tasty" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5Tasty', {
+        url: '/theDowntown5Tasty',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5Tasty.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5ThePit" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5ThePit', {
+        url: '/theDowntown5Pit',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5ThePit.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5Trophy" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5Trophy', {
+        url: '/theDowntown5Trophy',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5Trophy.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5State" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-right"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+
+    .state('app.theDowntown5State', {
+        url: '/theDowntown5State',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/theDowntown5State.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile" ui-sref="app.theDowntown5" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chevron-left"></i></button>',
+                controller: function ($timeout) {
+                  $timeout(function () {
+                      document.getElementById('fab-profile').classList.toggle('on');
+                  }, 600);
+                }
+            }
+        }
+    })
+	
+	.state('app.dessertGuide', { //stuti
         url: '/dessertGuide',
         views: {
             'menuContent': {
@@ -249,7 +375,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     })
 
-.state('app.dessertGuideWH', { //stuti
+	.state('app.dessertGuideWH', { //stuti
         url: '/dessertGuideWH',
         views: {
             'menuContent': {
@@ -303,8 +429,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             }
         }
     })
-
-
+	
     .state('app.profile', {
         url: '/profile',
         views: {
