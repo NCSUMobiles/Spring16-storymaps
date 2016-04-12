@@ -1,0 +1,12 @@
+<ion-view>
+  <ion-nav-title>{{locationData.name}}</ion-nav-title>
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+      <iframe  style="height:50%;width:100%;" ng-show="locationData.urlType == 'video'" src="{{trustSrc(locationData.url)}}" frameborder="0" allowfullscreen></iframe>
+      <img  style="height:50%;width:100%;" ng-show="locationData.urlType == 'image'" src="{{trustSrc(locationData.url)}}"></img>
+      <h4 class="padding-little">{{locationData.subTitle}}</h4>
+      <p class="padding-little" ng-bind-html="locationData.description"></p>
+      <br><br><br>
+    </ion-content>
+    <a href="/#/app/location/{{locationData.nextLocationId}}" ng-show="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-energized">Onto the next location!</a>
+    <a href="/#/app/stories" ng-hide="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-positive">Show me more stories!</a>
+</ion-view>

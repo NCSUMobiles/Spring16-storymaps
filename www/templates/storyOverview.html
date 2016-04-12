@@ -1,0 +1,18 @@
+<ion-view>
+  <ion-nav-title>{{story.name}}</ion-nav-title>
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+      <iframe src="{{trustSrc(story.mapUrl)}}" style=" height:50%;width:100%;"></iframe>
+        <h4 class="content padding double-padding-x">On this Tour</h4>
+
+        <div class="list animate-fade-slide-in-right">
+
+          <a ui-sref="app.location({id:'{{location}}'})" class="item item-avatar item-icon-right" ng-repeat="location in story.locations">
+            <img src="{{locations[location].thumbnailUrl}}">
+            <h2>{{locations[location].name}}</h2>
+            <p>{{locations[location].subTitle}}</p>
+          </a>
+          <br><br><br>
+        </div>
+    </ion-content>
+    <a href="/#/app/location/{{story.nextLocationId}}" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-balanced">Begin Tour!</a>
+</ion-view>

@@ -139,7 +139,124 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('StoryCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('locationCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+
+    $scope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    };
+
+    var decodeHtml = function(html) {
+      var txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+    $scope.locationData = {
+      "_id": $stateParams.Id,
+      "name": "",
+      "subTitle": "",
+      "description": "",
+      "url": "",
+      "urlType": "",
+      "nextLocationId": "",
+      "latitude": "",
+      "longitude": "",
+    };
+
+    $http.get('http://52.25.142.245:3000/api/locations/'+$stateParams.id)
+        .success(function(data) {
+            $scope.locationData = data;
+            $scope.locationData.description = decodeHtml($scope.locationData.description);
+            console.log($scope.locationData.description);
+            $scope.$apply();
+        });
+})
+
+.controller('storyOverviewCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+
+    $scope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    };
+
+    $scope.updateLocations = function(){
+      var location;
+      for(location in $scope.story.locations){
+        console.log(location);
+        $http.get('http://52.25.142.245:3000/api/locations/'+$scope.story.locations[location])
+            .success(function(data) {
+                $scope.locations[data._id] = data;
+            });
+      }
+    };
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+    $scope.story = {
+      "_id": $stateParams.storyId,
+      "name": "",
+      "description": "",
+      "mapUrl": "",
+      "difficulty": "",
+      "nextLocationId": "",
+      "latitude": "",
+      "longitude": "",
+      "locations": []
+    };
+
+    $scope.locations = [];
+
+    $http.get('http://52.25.142.245:3000/api/stories/'+$stateParams.storyId)
+        .success(function(data) {
+            $scope.story = data;
+            $scope.updateLocations();
+            console.log(data);
+            $scope.$apply();
+        });
+
+
+})
+
+.controller('StoryCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http) {
 
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
@@ -155,6 +272,16 @@ angular.module('starter.controllers', [])
 
   // Activate ink for controller
   ionicMaterialInk.displayEffect();
+
+  $scope.stories = [];
+
+  $http.get('http://52.25.142.245:3000/api/stories/')
+      .success(function(data) {
+          $scope.stories = data;
+          console.log(data);
+          $scope.$apply();
+      });
+
 })
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
