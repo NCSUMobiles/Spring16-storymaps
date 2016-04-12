@@ -189,7 +189,6 @@ angular.module('starter.controllers', [])
             $scope.locationData = data;
             $scope.locationData.description = decodeHtml($scope.locationData.description);
             console.log($scope.locationData.description);
-            $scope.$apply();
         });
 })
 
@@ -250,7 +249,6 @@ angular.module('starter.controllers', [])
             $scope.story = data;
             $scope.updateLocations();
             console.log(data);
-            $scope.$apply();
         });
 
 
@@ -279,7 +277,6 @@ angular.module('starter.controllers', [])
       .success(function(data) {
           $scope.stories = data;
           console.log(data);
-          $scope.$apply();
       });
 
 })
