@@ -139,7 +139,7 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('locationCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
+.controller('locationCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -157,21 +157,7 @@ angular.module('starter.controllers', [])
       return txt.value;
     };
 
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
-
-    // Set Ink
-    ionicMaterialInk.displayEffect();
     $scope.locationData = {
       "_id": $stateParams.Id,
       "name": "",
@@ -184,15 +170,38 @@ angular.module('starter.controllers', [])
       "longitude": "",
     };
 
-    $http.get('http://52.25.142.245:3000/api/locations/'+$stateParams.id)
+    $scope.gotoNextPage = function(){
+      $state.go('app.location',{id:$scope.locationData.nextLocationId});
+    };
+
+    $scope.gotoStories = function(){
+      $state.go('app.stories');
+    };
+
+    $http.get('http://52.25.142.245:9000/api/locations/'+$stateParams.id)
         .success(function(data) {
             $scope.locationData = data;
             $scope.locationData.description = decodeHtml($scope.locationData.description);
             console.log($scope.locationData.description);
+            // Set Motion
+            $timeout(function() {
+                ionicMaterialMotion.slideUp({
+                    selector: '.slide-up'
+                });
+            }, 300);
+
+            $timeout(function() {
+                ionicMaterialMotion.fadeSlideInRight({
+                    startVelocity: 3000
+                });
+            }, 700);
+
+            // Set Ink
+            ionicMaterialInk.displayEffect();
         });
 })
 
-.controller('storyOverviewCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
+.controller('storyOverviewCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -208,28 +217,13 @@ angular.module('starter.controllers', [])
       var location;
       for(location in $scope.story.locations){
         console.log(location);
-        $http.get('http://52.25.142.245:3000/api/locations/'+$scope.story.locations[location])
+        $http.get('http://52.25.142.245:9000/api/locations/'+$scope.story.locations[location])
             .success(function(data) {
                 $scope.locations[data._id] = data;
             });
       }
     };
 
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
-
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
-
-    // Set Ink
-    ionicMaterialInk.displayEffect();
     $scope.story = {
       "_id": $stateParams.storyId,
       "name": "",
@@ -242,13 +236,33 @@ angular.module('starter.controllers', [])
       "locations": []
     };
 
+    $scope.gotoNextPage = function(){
+      $state.go('app.location',{id:$scope.story.nextLocationId});
+    };
+
     $scope.locations = [];
 
-    $http.get('http://52.25.142.245:3000/api/stories/'+$stateParams.storyId)
+    $http.get('http://52.25.142.245:9000/api/stories/'+$stateParams.storyId)
         .success(function(data) {
             $scope.story = data;
             $scope.updateLocations();
             console.log(data);
+
+            // Set Motion
+            $timeout(function() {
+                ionicMaterialMotion.slideUp({
+                    selector: '.slide-up'
+                });
+            }, 300);
+
+            $timeout(function() {
+                ionicMaterialMotion.fadeSlideInRight({
+                    startVelocity: 3000
+                });
+            }, 700);
+
+            // Set Ink
+            ionicMaterialInk.displayEffect();
         });
 
 
@@ -262,21 +276,19 @@ angular.module('starter.controllers', [])
   $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab('right');
 
-  $timeout(function() {
-      ionicMaterialMotion.fadeSlideIn({
-          selector: '.animate-fade-slide-in .item'
-      });
-  }, 200);
-
-  // Activate ink for controller
-  ionicMaterialInk.displayEffect();
-
   $scope.stories = [];
 
-  $http.get('http://52.25.142.245:3000/api/stories/')
+  $http.get('http://52.25.142.245:9000/api/stories/')
       .success(function(data) {
           $scope.stories = data;
           console.log(data);
+          // Activate ink for controller
+          ionicMaterialInk.displayEffect();
+          $timeout(function() {
+              ionicMaterialMotion.fadeSlideIn({
+                  selector: '.animate-fade-slide-in .item'
+              });
+          }, 200);
       });
 
 })

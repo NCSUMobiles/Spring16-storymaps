@@ -7,6 +7,6 @@
       <p class="padding-little" ng-bind-html="locationData.description"></p>
       <br><br><br>
     </ion-content>
-    <a href="/#/app/location/{{locationData.nextLocationId}}" ng-show="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-energized">Onto the next location!</a>
-    <a href="/#/app/stories" ng-hide="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-positive">Show me more stories!</a>
+    <button ng-click="gotoNextPage()" ng-show="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-energized">Onto the next location!</button>
+    <button ng-click="gotoStories()" ng-hide="locationData.nextLocationId" style="position:fixed; bottom:0px; margin-bottom:0px; z-index:999; width:100%" class="button button-flat button-positive">Show me more stories!</button>
 </ion-view>
