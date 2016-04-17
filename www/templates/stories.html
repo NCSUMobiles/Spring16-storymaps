@@ -1,10 +1,12 @@
 <ion-view view-title="Stories">
     <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-      <div class="item card-item" ng-repeat="story in stories">
+      <div class="item card-item" ng-repeat="story in stories | orderBy:'distance'">
         <div ui-sref="app.storyOverview({storyId:'{{story._id}}'})" style="border-radius:5px" class="card card-gallery item item-text-wrap">
             <div class="ink dark-bg">
                 <img class="full-image" src="{{story.thumbnailUrl}}">
-                <h2 style="padding:12px;">{{story.name}}</h2>
+                <h2 style="padding:12px;">{{story.name}}
+                </h2>
+                <h2 style="padding:12px;" class="pull-right">{{story.distance}} km away</h2>
             </div>
         </div>
       </div>

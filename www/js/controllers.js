@@ -1,7 +1,7 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
@@ -201,28 +201,66 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('storyOverviewCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce) {
+.controller('storyOverviewCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $sce, $cordovaGeolocation) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.locationIds = [];
+
+    var posOptions = {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 0
+    };
 
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
     };
 
     $scope.updateLocations = function(){
+      $scope.locationIds = [];
       var location;
       for(location in $scope.story.locations){
-        console.log(location);
         $http.get('http://52.25.142.245:9000/api/locations/'+$scope.story.locations[location])
             .success(function(data) {
+                $scope.locationIds.push(data._id);
                 $scope.locations[data._id] = data;
+                $scope.locations[data._id].distance = "N/A";
+                $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+                  var lat1 = position.coords.latitude;
+                  var lon1 = position.coords.longitude;
+                  console.log(lat1);
+                  console.log(lon1);
+                  console.log($scope.locationIds);
+                  for(var i=0; i<$scope.locationIds.length;i++) {
+                    var lat2 = $scope.locations[$scope.locationIds[i]].latitude;
+                    var lon2 = $scope.locations[$scope.locationIds[i]].longitude;
+                    console.log($scope.locations[$scope.locationIds[i]].name+" : "+calcCrow(lat1, lon1, lat2, lon2));
+                    $scope.locations[$scope.locationIds[i]].distance = Math.round(calcCrow(lat1, lon1, lat2, lon2));
+                  }
+                });
             });
       }
     };
+
+    function toRad(Value) {
+      return Value * Math.PI / 180;
+    }
+
+    function calcCrow(lat1, lon1, lat2, lon2) {
+      var R = 6371; // km
+      var dLat = toRad(lat2-lat1);
+      var dLon = toRad(lon2-lon1);
+      lat1 = toRad(lat1);
+      lat2 = toRad(lat2);
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var d = R * c;
+      return d;
+    }
 
     $scope.story = {
       "_id": $stateParams.storyId,
@@ -268,7 +306,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('StoryCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http) {
+.controller('StoryCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $http,  $cordovaGeolocation) {
 
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
@@ -278,9 +316,34 @@ angular.module('starter.controllers', [])
 
   $scope.stories = [];
 
+  var posOptions = {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 0
+  };
+
+  function toRad(Value) {
+    return Value * Math.PI / 180;
+  }
+
+  function calcCrow(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = toRad(lat2-lat1);
+    var dLon = toRad(lon2-lon1);
+    lat1 = toRad(lat1);
+    lat2 = toRad(lat2);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d;
+  }
+
   $http.get('http://52.25.142.245:9000/api/stories/')
       .success(function(data) {
           $scope.stories = data;
+          for(var i=0; i<$scope.stories.length;i++) {
+            $scope.stories[i].distance = "N/A";
+          }
           console.log(data);
           // Activate ink for controller
           ionicMaterialInk.displayEffect();
@@ -289,6 +352,18 @@ angular.module('starter.controllers', [])
                   selector: '.animate-fade-slide-in .item'
               });
           }, 200);
+          $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+            var lat1 = position.coords.latitude;
+            var lon1 = position.coords.longitude;
+            console.log(lat1);
+            console.log(lon1);
+            for(var i=0; i<$scope.stories.length;i++) {
+              var lat2 = $scope.stories[i].latitude;
+              var lon2 = $scope.stories[i].longitude;
+              console.log($scope.stories[i].name+" : "+calcCrow(lat1, lon1, lat2, lon2));
+              $scope.stories[i].distance = Math.round(calcCrow(lat1, lon1, lat2, lon2));
+            }
+          });
       });
 
 })
