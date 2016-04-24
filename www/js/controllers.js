@@ -3,7 +3,7 @@
 
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -87,12 +87,116 @@ angular.module('starter.controllers', ['ngCordova'])
     };
 })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl', function($scope, $timeout, $state, $stateParams, $q, $ionicLoading, ionicMaterialInk) {
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
+
+    var fbLoginSuccess = function(response) {
+    if (!response.authResponse){
+      fbLoginError("Cannot find the authResponse");
+      return;
+    }
+
+    var authResponse = response.authResponse;
+
+    getFacebookProfileInfo(authResponse)
+    .then(function(profileInfo) {
+      // For the purpose of this example I will store user data on local storage
+      var user1 = {
+        authResponse: authResponse,
+				userID: profileInfo.id,
+				name: profileInfo.name,
+				email: profileInfo.email,
+        picture : "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+      };
+      console.log(user1);
+      $ionicLoading.hide();
+      $state.go('app.stories');
+    }, function(fail){
+      // Fail get profile info
+      console.log('profile info fail', fail);
+    });
+  };
+
+  // This is the fail callback from the login method
+  var fbLoginError = function(error){
+    console.log('fbLoginError', error);
+    $ionicLoading.hide();
+  };
+
+  // This method is to get the user profile info from the facebook api
+  var getFacebookProfileInfo = function (authResponse) {
+    var info = $q.defer();
+
+    facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
+      function (response) {
+				console.log(response);
+        info.resolve(response);
+      },
+      function (response) {
+				console.log(response);
+        info.reject(response);
+      }
+    );
+    return info.promise;
+  };
+
+  //This method is executed when the user press the "Login with facebook" button
+  $scope.facebookSignIn = function() {
+    facebookConnectPlugin.getLoginStatus(function(success){
+      if(success.status === 'connected'){
+        // The user is logged in and has authenticated your app, and response.authResponse supplies
+        // the user's ID, a valid access token, a signed request, and the time the access token
+        // and signed request each expire
+        console.log('getLoginStatus', success.status);
+
+    		// Check if we have our user saved
+    		var user = {
+          authResponse: success.authResponse
+        };
+
+    		if(!user.userID){
+					getFacebookProfileInfo(success.authResponse)
+					.then(function(profileInfo) {
+						// For the purpose of this example I will store user data on local storage
+            var user1 = {
+							authResponse: success.authResponse,
+							userID: profileInfo.id,
+							name: profileInfo.name,
+							email: profileInfo.email,
+							picture : "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
+						};
+            console.log(user1);
+
+						$state.go('app.stories');
+					}, function(fail){
+						// Fail get profile info
+						console.log('profile info fail', fail);
+					});
+				}else{
+					$state.go('app.stories');
+				}
+      } else {
+        // If (success.status === 'not_authorized') the user is logged in to Facebook,
+				// but has not authenticated your app
+        // Else the person is not logged into Facebook,
+				// so we're not sure if they are logged into this app or not.
+
+				console.log('getLoginStatus', success.status);
+
+				$ionicLoading.show({
+          template: 'Logging in...'
+        });
+
+				// Ask the permissions you need. You can learn more about
+				// FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
+        facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess, fbLoginError);
+      }
+    });
+  };
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -178,7 +282,7 @@ angular.module('starter.controllers', ['ngCordova'])
       $state.go('app.stories');
     };
 
-    $http.get('http://52.25.142.245:9000/api/locations/'+$stateParams.id)
+    $http.get('http://52.38.229.124:9000/api/locations/'+$stateParams.id)
         .success(function(data) {
             $scope.locationData = data;
             $scope.locationData.description = decodeHtml($scope.locationData.description);
@@ -224,7 +328,7 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.locationIds = [];
       var location;
       for(location in $scope.story.locations){
-        $http.get('http://52.25.142.245:9000/api/locations/'+$scope.story.locations[location])
+        $http.get('http://52.38.229.124:9000/api/locations/'+$scope.story.locations[location])
             .success(function(data) {
                 $scope.locationIds.push(data._id);
                 $scope.locations[data._id] = data;
@@ -280,7 +384,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
     $scope.locations = [];
 
-    $http.get('http://52.25.142.245:9000/api/stories/'+$stateParams.storyId)
+    $http.get('http://52.38.229.124:9000/api/stories/'+$stateParams.storyId)
         .success(function(data) {
             $scope.story = data;
             $scope.updateLocations();
@@ -338,7 +442,7 @@ angular.module('starter.controllers', ['ngCordova'])
     return d;
   }
 
-  $http.get('http://52.25.142.245:9000/api/stories/')
+  $http.get('http://52.38.229.124:9000/api/stories/')
       .success(function(data) {
           $scope.stories = data;
           for(var i=0; i<$scope.stories.length;i++) {
