@@ -1,5 +1,5 @@
 
-
+![](https://github.com/NCSUMobiles/Spring16-storymaps/blob/master/extra/thumbnail.jpeg)
 Story Maps
 =========================
 
