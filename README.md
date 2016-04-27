@@ -12,20 +12,21 @@ Story Maps
 ### Setup
 
 * Clone this repo
-* The apk file is present within the /apk folder
+* The apk file is present within the /[apk folder](https://github.com/NCSUMobiles/Spring16-storymaps/tree/master/apk)
 * Copy the apk file onto your android phone and open to install
 * Enjoy! :D
 
 
 ### Initial Paper Prototype
 
-![]()
+![](https://github.com/NCSUMobiles/Spring16-storymaps/blob/master/extra/PaperPrototype1.png)
 
 
 ### Digital Prototype
 
 ![](https://github.com/NCSUMobiles/Spring16-storymaps/blob/master/extra/DigitalPrototype.png
  )
+You can find the digital prototype [here](https://story-maps.bubbleapps.io/version-test/index?debug_mode=true).
 
 ### Final Paper Protoype
 
@@ -40,8 +41,8 @@ Story Maps
 ### Presentation
 [Click here to find the presentation]()
 
-<h3>Screencast </h3>
+<h3>Video </h3>
 
-[Click here to watch the screencast] ()
+[Click here to find the video] ()
 
 
