@@ -50,6 +50,10 @@ You can find the digital prototype [here](https://story-maps.bubbleapps.io/versi
 
 [Click here to view the video] (https://www.youtube.com/watch?v=fJirEhxwehM)
 
+### App Store
+
+[Link to AppStore](https://play.google.com/store/apps/details?id=com.ionicframework.storymaps565921)
+
 ### Deliverables
 
 [View deliverables here](https://github.com/NCSUMobiles/Spring16-storymaps/tree/master/extra)
