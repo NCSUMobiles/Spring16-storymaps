@@ -52,5 +52,5 @@ You can find the digital prototype [here](https://story-maps.bubbleapps.io/versi
 
 ### Deliverables
 
-![View deliverables here](https://github.com/NCSUMobiles/Spring16-storymaps/tree/master/extra)
+[View deliverables here](https://github.com/NCSUMobiles/Spring16-storymaps/tree/master/extra)
 
