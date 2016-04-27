@@ -1,3 +1,5 @@
+
+
 Story Maps
 =========================
 
@@ -42,10 +44,10 @@ You can find the digital prototype [here](https://story-maps.bubbleapps.io/versi
 ![](https://github.com/NCSUMobiles/Spring16-storymaps/blob/master/extra/UsabilityEvaluationResult.PNG)
   
 ### Presentation
-[Click here to find the presentation]()
+[Click here to view the presentation](https://docs.google.com/a/ncsu.edu/presentation/d/1mVmf0creKeftyMkHHphsJwjkLjRXa_Uwr-xVHdh0LcQ/edit?usp=sharing)
 
 <h3>Video </h3>
 
-[Click here to find the video] ()
+[Click here to view the video] (https://www.youtube.com/watch?v=fJirEhxwehM)
 
 
