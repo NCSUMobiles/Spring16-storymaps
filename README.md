@@ -38,7 +38,7 @@ You can find the digital prototype [here](https://story-maps.bubbleapps.io/versi
 1. [Discovery Survey](https://docs.google.com/forms/d/1qplkhqsnnTJAyn7HBD2uD6WjjtLYWGGAg9s11yck9c8/viewform)
 2. [Usability Evaluation](https://docs.google.com/a/ncsu.edu/forms/d/13TrXV7ro28-taXLUoKl7Z6wYEYiIS7gkimPv0cL2L6M/viewform) 
 
-** Usability Evaluation Results **
+**Usability Evaluation Results**
 ![](https://github.com/NCSUMobiles/Spring16-storymaps/blob/master/extra/UsabilityEvaluationResult.PNG)
   
 ### Presentation
